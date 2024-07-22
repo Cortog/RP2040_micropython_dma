@@ -153,7 +153,9 @@ class PIO_DMA_Transfer():
             return False
         
     def abort_transfer(self):
-        pass
+        DMA_DEVICE.CHAN_ABORT = 1 << self.channel_number
+        while DMA_DEVICE.CHAN_ABORT != 0:
+            pass
     
     def chain_to(self, channel):
         self.dma_chan.CTRL_TRIG.CHAIN_TO = channel
